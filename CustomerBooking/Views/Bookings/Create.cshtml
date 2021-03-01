@@ -1,0 +1,43 @@
+﻿@model CustomerBooking.Models.Booking
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Booking</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Create", "Bookings", FormMethod.Post))
+        {
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CheckIn" class="control-label"></label>
+                <input asp-for="CheckIn" class="form-control" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckOut" class="control-label"></label>
+                <input asp-for="CheckOut" class="form-control" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.Hidden("RoomId", int.Parse(Context.Request.Path.ToString().Substring(17)))
+                <input type="submit" value="Book" class="btn btn-primary" />
+            </div>
+
+        }
+
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Rooms" asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("../../Areas/Identity/Pages/_ValidationScriptsPartial");}
+}
+

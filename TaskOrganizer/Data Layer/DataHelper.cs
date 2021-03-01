@@ -4,21 +4,17 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using TaskOrganizer.Data_Layer;
 
 namespace TaskOrganizer
 {
     class DataHelper
     {
-
-
-
-        public static RoomList GetRooms(string connectionString)
+        public static TaskList GetRooms(string connectionString)
         {
-            const string GetRoomsQuery = "SELECT * FROM ROOM";
+            const string GetTasksQuery = "SELECT * FROM TASK";
 
-            var rooms = new RoomList();
+            var tasks = new TaskList();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -28,26 +24,24 @@ namespace TaskOrganizer
                     {
                         using (SqlCommand cmd = conn.CreateCommand())
                         {
-                            cmd.CommandText = GetRoomsQuery;
+                            cmd.CommandText = GetTasksQuery;
                             using (SqlDataReader reader = cmd.ExecuteReader())
                             {
                                 while (reader.Read())
                                 {
-                                    var room = new Room();
-                                    room.Id = reader.GetInt32(0);
-                                    room.Beds = reader.GetInt32(1);
-                                    room.AvailableTo = reader.GetDateTime(2);
-                                    room.Quality = reader.GetString(3);
-                                    room.Price = reader.GetDecimal(4);
-                                    room.Clean = reader.GetString(5);
-                                    Console.WriteLine(room.Beds);
-                                    rooms.Add(room);
+                                    var task = new Task();
+                                    task.TaskId = reader.GetInt32(0);
+                                    task.RoomId = reader.GetInt32(1);
+                                    task.Employee = reader.GetString(2);
+                                    task.Note = reader.GetString(3);
+                                    task.Status = reader.GetString(4);
+                                    tasks.Add(task);
                                 }
                             }
                         }
                     }
                 }
-                return rooms;
+                return tasks;
             }
             catch (Exception eSql)
             {

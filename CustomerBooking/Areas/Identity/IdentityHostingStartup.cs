@@ -16,12 +16,18 @@ namespace CustomerBooking.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<BookingContext>(options =>
+                services.AddDbContext<HotelContext>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("BookingContextConnection")));
+                        context.Configuration.GetConnectionString("HotelContext")));
 
-                services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<BookingContext>();
+                services.AddDefaultIdentity<Customer>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireNonAlphanumeric = false;
+
+                })
+                
+                    .AddEntityFrameworkStores<HotelContext>();
             });
         }
     }

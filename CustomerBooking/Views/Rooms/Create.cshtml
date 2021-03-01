@@ -1,4 +1,5 @@
 ﻿@model CustomerBooking.Models.Room
+@using CustomerBooking.Areas.Identity.Pages;
 
 @{
     ViewData["Title"] = "Create";
@@ -18,24 +19,14 @@
                 <span asp-validation-for="Beds" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AvailableTo" class="control-label"></label>
-                <input asp-for="AvailableTo" class="form-control" />
-                <span asp-validation-for="AvailableTo" class="text-danger"></span>
+                <label asp-for="Quality" class="control-label"></label>
+                <input asp-for="Quality" class="form-control" />
+                <span asp-validation-for="Quality" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="quality" class="control-label"></label>
-                <input asp-for="quality" class="form-control" />
-                <span asp-validation-for="quality" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="price" class="control-label"></label>
-                <input asp-for="price" class="form-control" />
-                <span asp-validation-for="price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="clean" class="control-label"></label>
-                <input asp-for="clean" class="form-control" />
-                <span asp-validation-for="clean" class="text-danger"></span>
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -49,5 +40,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("../../Areas/Identity/Pages/_ValidationScriptsPartial");}
 }

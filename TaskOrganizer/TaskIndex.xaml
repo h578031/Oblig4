@@ -1,0 +1,58 @@
+﻿<Page
+    x:Class="TaskOrganizer.TaskIndex"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TaskOrganizer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local1="using:TaskOrganizer.Data_Layer"
+    mc:Ignorable="d"
+    Background="#347B98">
+
+    <Grid>
+        <RelativePanel>
+            <ListView Name="TaskList"
+                  SelectionMode="Single"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.IsVerticalRailEnabled="True"
+                  ScrollViewer.VerticalScrollMode="Enabled"
+                  ScrollViewer.HorizontalScrollMode="Enabled"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.IsHorizontalRailEnabled="True"
+                  Margin="20">
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Width="1400"  >
+                            <TextBlock Text="TaskId" Margin="8,0" Width="100" Foreground="#1A3E4C" />
+                            <TextBlock Text="RoomId" Width="100" Foreground="#1A3E4C" />
+                            <TextBlock Text="Employee" Width="200" Foreground="#1A3E4C" />
+                            <TextBlock Text="Status" Width="200" Foreground="#1A3E4C" />
+                            <TextBlock Text="Note" Width="400" Foreground="#1A3E4C" />
+                            <Button Content="Back to role selector" Background="#67AFCB" Width="150" Foreground="#1A3E4C" Click="Button_Click"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate  x:DataType="local1:Task">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Name="TaskId"
+                                    Text="{x:Bind TaskId}"
+                                    Width="102" />
+                            <TextBlock Name="RoomId"
+                                    Text="{x:Bind RoomId}"
+                                    Width="102" />
+                            <TextBlock Name="Employee"
+                                    Text="{x:Bind Employee}"
+                                    Width="202" />
+                            <TextBlock Text="{x:Bind Status}"
+                                   Width="202" />
+                            <TextBlock Text="{x:Bind Note}"
+                                   Width="397" />
+                            <Button x:Name="detailBtn" Content="Details" Click="detailBtn_Click" Width="75"></Button>
+                            <Button x:Name="updateBtn" Content="Update" Click="updateBtn_Click" Width="75"></Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RelativePanel>
+    </Grid>
+</Page>

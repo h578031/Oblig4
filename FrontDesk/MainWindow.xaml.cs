@@ -1,4 +1,6 @@
-﻿using FrontDesk.Model;
+﻿//using FrontDesk.Model;
+using FrontDesk.Models;
+using FrontDesk.Windows.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,40 +23,43 @@ namespace FrontDesk
     /// </summary>
     public partial class MainWindow : Window
     {
-        MvcBookingContext1Context _db = new MvcBookingContext1Context();
+        HotelDbContext hotelContext = new HotelDbContext();
         public static DataGrid datagrid;
-        
+
         public MainWindow()
         {
             InitializeComponent();
-            Load();
-        }
-        private void Load()
-        {
-            myDataGrid.ItemsSource = _db.Rooms.ToList();
-            datagrid = myDataGrid;
+/*            SolidColorBrush b = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#173f5f"));
+            SolidColorBrush br = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#20639b"));
+            SolidColorBrush bru = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3caea3"));
+            SolidColorBrush gridCol = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f6d55c"));
+            roomBtn.Background = b;
+            roomBtn.FontSize = 50;
+            bookingBtn.Background = br;
+            bookingBtn.FontSize = 50;
+            taskBtn.Background = bru;
+            taskBtn.FontSize = 50;
+            myGrid.Background = gridCol;*/
+
+            //Load();
         }
 
-        private void insertBtn_Click(object sender, RoutedEventArgs e)
+        private void roomBtn_Click(object sender, RoutedEventArgs e)
         {
-            Insert insert = new Insert();
-            insert.ShowDialog();
+            RoomIndex roomIndex = new RoomIndex();
+            roomIndex.ShowDialog();
         }
 
-        private void updateBtn_Click(object sender, RoutedEventArgs e)
+        private void bookingBtn_Click(object sender, RoutedEventArgs e)
         {
-            int Id = (myDataGrid.SelectedItem as Room).Id;
-            Update update = new Update(Id);
-            update.ShowDialog();
+            BookingIndex bookingIndex = new BookingIndex();
+            bookingIndex.ShowDialog();
         }
 
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        private void taskBtn_Click(object sender, RoutedEventArgs e)
         {
-            int Id = (myDataGrid.SelectedItem as Room).Id;
-            var deleteRoom = _db.Rooms.Where(r => r.Id == Id).Single();
-            _db.Rooms.Remove(deleteRoom);
-            _db.SaveChanges();
-            myDataGrid.ItemsSource = _db.Rooms.ToList();
+            TaskIndex taskIndex = new TaskIndex();
+            taskIndex.ShowDialog();
         }
     }
 }

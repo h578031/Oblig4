@@ -1,37 +1,62 @@
-﻿using System;
+﻿using CustomerBooking.Data;
+using CustomerBooking.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CustomerBooking.Data;
-using CustomerBooking.Models;
 
 namespace CustomerBooking.Controllers
 {
     public class RoomsController : Controller
     {
-        private readonly MvcBookingContext _context;
+        private readonly HotelContext hotelContext;
 
-        public RoomsController(MvcBookingContext context)
+        public RoomsController(HotelContext context)
         {
-            _context = context;
+            hotelContext = context;
         }
-
-        // GET: Rooms
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> IndexAsync(string searchString, string fro, string too)
         {
-            var rooms = from r in _context.Room
+            var rooms = from r in hotelContext.Room
                         select r;
+            
 
-            if(!String.IsNullOrEmpty(searchString))
+            var takenrooms = from b in hotelContext.Booking
+                             join r in hotelContext.Room on b.RoomId equals r.RoomId
+                             select r;
+
+            
+            if (!String.IsNullOrEmpty(fro) && !String.IsNullOrEmpty(too))
+           {
+                DateTime fr = DateTime.Parse(fro);
+                DateTime to = DateTime.Parse(too);
+                takenrooms = hotelContext.Booking.Where(x => DateTime.Compare(x.CheckIn, fr) < 0
+                                                            && DateTime.Compare(x.CheckOut, to) > 0)
+                                                            .Select(x => x.Room);
+           }
+
+            /*else if (!String.IsNullOrEmpty(fro))
             {
-                rooms = rooms.Where(x => x.Beds == int.Parse(searchString));
+                DateTime fr = DateTime.Parse(fro);
+                takenrooms = hotelContext.Booking.Where(x => DateTime.Compare(x.CheckIn, fr) < 0).Select(x => x.Room);
             }
-            return View(await rooms.ToListAsync());
-        }
+            else if (!String.IsNullOrEmpty(too))
+            {
+                var takenrooms = availableRooms.Where(x => x.Beds == int.Parse(searchString));
+            }*/
 
+            var availableRooms = rooms.Where(x => takenrooms.All(y => y.RoomId != x.RoomId));
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                availableRooms = availableRooms.Where(x => x.Beds == int.Parse(searchString));
+            }
+
+
+            return View(await availableRooms.ToListAsync());
+        }
         // GET: Rooms/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -40,8 +65,8 @@ namespace CustomerBooking.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Room
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await hotelContext.Room
+                .FirstOrDefaultAsync(m => m.RoomId == id);
             if (room == null)
             {
                 return NotFound();
@@ -61,12 +86,12 @@ namespace CustomerBooking.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Beds,AvailableTo,quality,price,clean")] Room room)
+        public async Task<IActionResult> Create([Bind("Id,Beds,Quality,Price")] Room room)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(room);
-                await _context.SaveChangesAsync();
+                hotelContext.Add(room);
+                await hotelContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(room);
@@ -80,7 +105,7 @@ namespace CustomerBooking.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Room.FindAsync(id);
+            var room = await hotelContext.Room.FindAsync(id);
             if (room == null)
             {
                 return NotFound();
@@ -95,7 +120,7 @@ namespace CustomerBooking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Beds,AvailableTo,quality,price,clean")] Room room)
         {
-            if (id != room.Id)
+            if (id != room.RoomId)
             {
                 return NotFound();
             }
@@ -104,12 +129,12 @@ namespace CustomerBooking.Controllers
             {
                 try
                 {
-                    _context.Update(room);
-                    await _context.SaveChangesAsync();
+                    hotelContext.Update(room);
+                    await hotelContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoomExists(room.Id))
+                    if (!RoomExists(room.RoomId))
                     {
                         return NotFound();
                     }
@@ -131,8 +156,8 @@ namespace CustomerBooking.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Room
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await hotelContext.Room
+                .FirstOrDefaultAsync(m => m.RoomId == id);
             if (room == null)
             {
                 return NotFound();
@@ -146,15 +171,16 @@ namespace CustomerBooking.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var room = await _context.Room.FindAsync(id);
-            _context.Room.Remove(room);
-            await _context.SaveChangesAsync();
+            var room = await hotelContext.Room.FindAsync(id);
+            hotelContext.Room.Remove(room);
+            await hotelContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RoomExists(int id)
         {
-            return _context.Room.Any(e => e.Id == id);
+            return hotelContext.Room.Any(e => e.RoomId == id);
         }
+
     }
 }

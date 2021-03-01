@@ -13,45 +13,61 @@ namespace CustomerBooking.Models
 
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new MvcBookingContext(
-                serviceProvider.GetRequiredService<DbContextOptions<MvcBookingContext>>()))
+            using (var context = new HotelContext(
+                serviceProvider.GetRequiredService<DbContextOptions<HotelContext>>()))
             {
                 //If there are any rooms then do nothing
-                if(context.Room.Any())
+                if(context.Room.Any() || context.Booking.Any())
                 {
                     return;
                 }
-
                 context.Room.AddRange(
                     new Room
                     {
-                        //Id = 30,
                         Beds = 3,
-                        AvailableTo = DateTime.Parse("2021-3-15"),
-                        quality = "Economy",
-                        price = 800,
-                        clean = "kind of..."
+                        Quality = "Bronze",
+                        Price = 800
+
                     },
                     
                     new Room
                     {
                         //Id = 50,
                         Beds = 1,
-                        AvailableTo = DateTime.Parse("2021-5-12"),
-                        quality = "Wedding",
-                        price = 2500,
-                        clean = "was clean last week"
+                        Quality = "Gold",
+                        Price = 2500
+                        
                     },
                     new Room
                     {
                         //Id = 70,
                         Beds = 4,
-                        AvailableTo = DateTime.Parse("2021-7-9"),
-                        quality = "Family",
-                        price = 1000,
-                        clean = "I think Liv cleaned a while ago"
+                        Quality = "Diamond",
+                        Price = 1000
                     }
                 );
+                 context.Customer.AddRange(
+                     new Areas.Identity.Data.Customer
+                     {
+                         Id = "c7353468-f881-4b8a-b27a-648ed10c158c",
+                         FirstName = "Magnus",
+                         LastName = "Leira",
+                         PhoneNumber = "99485127",
+                         Email = "magnuslei@hotmail.com",
+                         PasswordHash = "780F49EE3AF87463F4350D7AACBC98D39201DD1479B897CD38D91A35B37871FC"
+                     }
+
+
+                     );
+                context.Booking.AddRange(
+                    new Booking
+                    {
+                        CustomerId = "c7353468-f881-4b8a-b27a-648ed10c158c",
+                        RoomId = 1,
+                        CheckIn = DateTime.Parse("2021-3-15"),
+                        CheckOut = DateTime.Parse("2021-4-1")
+
+                    });
                 context.SaveChanges();
             }
         }

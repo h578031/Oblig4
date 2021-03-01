@@ -12,12 +12,12 @@ namespace CustomerBooking.Models
     {
         [Key]
         public int BookingId { get; set; }
-        [Required]
+        
         [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
-        [Required]
+        
         [ForeignKey("RoomId")]
         public Room Room { get; set; }
         public int RoomId { get; set; }

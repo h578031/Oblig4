@@ -16,7 +16,7 @@ namespace CustomerBooking.Models
         public Room Room { get; set; }
         public int RoomId { get; set; }
 
-        public string Type { get; set; }
+        public string Employee { get; set; }
         public string Note { get; set; }
         public string Status { get; set; }
 

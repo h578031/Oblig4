@@ -15,9 +15,9 @@ namespace TaskOrganizer.Data_Layer
         }
         public Room GetRoomById(int id)
         {
-            for(int i=0; i< Items.Count; i++)
+            for (int i = 0; i < Items.Count; i++)
             {
-                if(Items[i].Id == id)
+                if (Items[i].Id == id)
                 {
                     return Items[i];
                 }

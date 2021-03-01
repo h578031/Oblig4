@@ -10,16 +10,16 @@ namespace CustomerBooking.Models
     public class Room
     {
         [Key]
-        public int Id { get; set; }
+        public int RoomId { get; set; }
         [Required]
         public int Beds { get; set; }
-        public DateTime AvailableTo {get; set;}
+       // public DateTime AvailableTo {get; set;}
         [Required]
-        public string quality { get; set; }
+        public string Quality { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         [Required]
-        public decimal price { get; set; }
-        public string clean { get; set; }
+        public decimal Price { get; set; }
+        //public string clean { get; set; }
 
 
     }

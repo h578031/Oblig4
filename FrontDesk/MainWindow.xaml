@@ -5,38 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrontDesk"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
-    <DockPanel>
-        <DataGrid x:Name="myDataGrid" x:FieldModifier="public" AutoGenerateColumns="False" ColumnWidth="*">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Beds" Binding="{Binding Beds}"/>
-                <DataGridTextColumn Header="AvailableTo" Binding="{Binding AvailableTo}"/>
-                <DataGridTextColumn Header="quality" Binding="{Binding Quality}"/>
-                <DataGridTextColumn Header="price" Binding="{Binding Price}"/>
-                <DataGridTextColumn Header="clean" Binding="{Binding Clean}"/>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="Action"/>
-                        </DataTemplate>
-                        
-                    </DataGridTemplateColumn.HeaderTemplate>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button x:Name="insertBtn" Content="Insert" Click="insertBtn_Click"/>
-                                <Button x:Name="updateBtn" Content="Update" Click="updateBtn_Click"/>
-                                <Button x:Name="deleteBtn" Content="Delete" Click="deleteBtn_Click"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+        Background="#347B98"
+    Title="MainWindow" Height="836" Width="1614">
+    <Grid Name="myGrid">
+        <Button Name="roomBtn" HorizontalAlignment="Left" Foreground="#1A3E4C" FontSize="40" Background="#67AFCB" Margin="193,227,0,0" VerticalAlignment="Top" Width="275" Height="183" RenderTransformOrigin="0.393,0.507" Click="roomBtn_Click">
+        <Button.Content>
+                <TextBlock><Bold>Rooms</Bold> </TextBlock>
+        </Button.Content>
+        </Button>
+        <Button Name="bookingBtn" HorizontalAlignment="Left" Foreground="#1A3E4C" FontSize="40" Background="#67AFCB" Margin="628,227,0,0" VerticalAlignment="Top" Width="275" Height="183" Click="bookingBtn_Click">
+            <Button.Content>
+                <TextBlock><Bold>Bookings</Bold></TextBlock>
+            </Button.Content>
+        </Button>
+        <Button Name="taskBtn" HorizontalAlignment="Left" Foreground="#1A3E4C" FontSize="40" Background="#67AFCB" Margin="1057,227,0,0" VerticalAlignment="Top" Width="275" Height="183" Click="taskBtn_Click">
+            <Button.Content>
+                <TextBlock><Bold>Tasks</Bold></TextBlock>
+            </Button.Content>
+        </Button>
 
-
-            </DataGrid.Columns>
-        </DataGrid>
-        
-
-    </DockPanel>
+    </Grid>
 </Window>

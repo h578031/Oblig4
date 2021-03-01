@@ -1,0 +1,28 @@
+﻿<Window x:Class="FrontDesk.Windows.Tasks.TaskUpdate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrontDesk.Windows.Tasks"
+        mc:Ignorable="d"
+        Title="TaskUpdate" Height="450" Width="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="39,119,0,0" Text="Employee type:" FontSize="15" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="39,186,0,0" Text="Status:" FontSize="15" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="39,258,0,0" Text="Note:" FontSize="15" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <ComboBox x:Name="employeeBox" HorizontalAlignment="Left" Margin="191,117,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem>Maintainer</ComboBoxItem>
+            <ComboBoxItem>Cleaner</ComboBoxItem>
+            <ComboBoxItem>Service</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="statusBox" HorizontalAlignment="Left" Margin="191,190,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem>New</ComboBoxItem>
+            <ComboBoxItem>In progress</ComboBoxItem>
+            <ComboBoxItem>Finished</ComboBoxItem>
+        </ComboBox>
+        <TextBox x:Name="noteBox" HorizontalAlignment="Left" Margin="191,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" Height="81"/>
+        <Button Content="Update Task" HorizontalAlignment="Left" Margin="459,378,0,0" VerticalAlignment="Top" Width="87" Click="Button_Click"/>
+
+    </Grid>
+</Window>

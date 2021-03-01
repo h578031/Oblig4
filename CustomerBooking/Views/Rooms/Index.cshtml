@@ -6,12 +6,12 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <form asp-controller="Rooms" asp-action="Index" method="get">
     <p>
         Number of rooms: <input type="text" name="searchString" />
+        From: <input type="date" name="fro" />
+        Too: <input type="date" name="too" />
         <input type="submit" value="Filter" />
     </p>
 </form>
@@ -22,16 +22,10 @@
                 @Html.DisplayNameFor(model => model.Beds)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AvailableTo)
+                @Html.DisplayNameFor(model => model.Quality)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.quality)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.clean)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th></th>
         </tr>
@@ -43,21 +37,13 @@
                 @Html.DisplayFor(modelItem => item.Beds)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AvailableTo)
+                @Html.DisplayFor(modelItem => item.Quality)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.quality)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.clean)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-controller="Bookings" asp-action="Create" asp-route-id="@item.RoomId">Book</a>
             </td>
         </tr>
 }

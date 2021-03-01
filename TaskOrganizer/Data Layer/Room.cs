@@ -13,7 +13,7 @@ namespace TaskOrganizer
 {
     public class Room : INotifyPropertyChanged
     {
-     
+
         public Room()
         {
         }
@@ -23,7 +23,7 @@ namespace TaskOrganizer
 
             Id = int.Parse(jsonObject["id"].ToString());
             Beds = int.Parse(jsonObject["beds"].ToString());
-            AvailableTo = DateTime.Parse(jsonObject["availableTo"].GetString());            
+            AvailableTo = DateTime.Parse(jsonObject["availableTo"].GetString());
             Quality = jsonObject["quality"].ToString();
             Price = Decimal.Parse(jsonObject["price"].ToString());
             Clean = jsonObject["clean"].ToString();

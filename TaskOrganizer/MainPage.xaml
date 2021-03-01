@@ -6,53 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background ="#347B98">
+    <Grid>
+        <Button x:Name="mBtn" Background="#67AFCB" Foreground="#1A3E4C" Content="Maintainer" Margin="135,394,0,0" FontSize="40" VerticalAlignment="Top" Height="201" Width="274" Click="Btn_Click"/>
+        <Button x:Name="cBtn" Background="#67AFCB" Foreground="#1A3E4C" Content="Cleaner" Margin="577,394,0,0" FontSize="40" VerticalAlignment="Top" Height="201" Width="274" Click="Btn_Click"/>
+        <Button x:Name="sBtn" Background="#67AFCB" Foreground="#1A3E4C" Content="Service" Margin="1039,394,0,0" FontSize="40" VerticalAlignment="Top" Height="201" Width="274" Click="Btn_Click"/>
+        <TextBlock FontSize="90" Foreground="#1A3E4C" HorizontalAlignment="Left" Margin="367,102,0,0" Text="Select your role" TextWrapping="Wrap" VerticalAlignment="Top" Width="652" Height="131"/>
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-        <RelativePanel>
-            <ListView Name="InventoryList"
-                  SelectionMode="Single"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.IsVerticalRailEnabled="True"
-                  ScrollViewer.VerticalScrollMode="Enabled"
-                  ScrollViewer.HorizontalScrollMode="Enabled"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.IsHorizontalRailEnabled="True"
-                  Margin="20">
-                <ListView.HeaderTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal"  >
-                            <TextBlock Text="ID" Margin="8,0" Width="50" Foreground="DarkRed" />
-                            <TextBlock Text="Beds" Width="50" Foreground="DarkRed" />
-                            <TextBlock Text="AvailableTo" Width="150" Foreground="DarkRed" />
-                            <TextBlock Text="Quality" Width="150" Foreground="DarkRed" />
-                            <TextBlock Text="Price" Width="150" Foreground="DarkRed" />
-                            <TextBlock Text="Clean" Width="150" Foreground="DarkRed" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.HeaderTemplate>
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="local:Room">
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock Name="ItemId"
-                                    Text="{x:Bind Id}"
-                                    Width="50" />
-                            <TextBlock Name="beds"
-                                    Text="{x:Bind Beds}"
-                                    Width="50" />
-                            <TextBlock Name="av"
-                                    Text="{x:Bind AvailableTo}"
-                                    Width="150" />
-                            <TextBlock Text="{x:Bind Quality}"
-                                   Width="150" />
-                            <TextBlock Text="{x:Bind Price}"
-                                   Width="150" />
-                            <TextBlock Text="{x:Bind Clean}"
-                                   Width="150" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </RelativePanel>
+
     </Grid>
 </Page>
